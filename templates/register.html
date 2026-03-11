@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Регистрация — КиноПортал</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #13131a;
+      --surface2: #1c1c28;
+      --border: #2a2a3a;
+      --accent: #e8b84b;
+      --accent2: #c8943a;
+      --text: #f0ece4;
+      --muted: #7a7a9a;
+      --error: #e05a5a;
+      --success: #5acea0;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+    }
+
+    /* Фоновые элементы */
+    .bg-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(120px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .bg-orb-1 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(232,184,75,0.08) 0%, transparent 70%);
+      top: -100px; right: -100px;
+    }
+    .bg-orb-2 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(90,80,160,0.1) 0%, transparent 70%);
+      bottom: -100px; left: -100px;
+    }
+
+    /* Полоски киноплёнки слева */
+    .film-strip {
+      position: fixed;
+      left: 0; top: 0;
+      width: 36px;
+      height: 100vh;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 0;
+      z-index: 1;
+    }
+    .film-hole {
+      width: 16px; height: 12px;
+      border-radius: 3px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .page-wrapper {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 520px;
+      padding: 40px 24px;
+      margin-left: 36px;
+    }
+
+    /* Логотип */
+    .logo {
+      text-align: center;
+      margin-bottom: 32px;
+      animation: fadeDown 0.6s ease both;
+    }
+    .logo-icon {
+      font-size: 28px;
+      margin-bottom: 6px;
+    }
+    .logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      color: var(--accent);
+      letter-spacing: 1px;
+    }
+    .logo-sub {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    /* Карточка */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 36px 32px;
+      animation: fadeUp 0.7s ease both;
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent2), var(--accent), var(--accent2));
+    }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      margin-bottom: 4px;
+    }
+    .card-subtitle {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    /* Разделитель шагов */
+    .steps {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+    .step {
+      flex: 1;
+      height: 3px;
+      border-radius: 2px;
+      background: var(--border);
+      transition: background 0.3s;
+    }
+    .step.active { background: var(--accent); }
+    .step.done { background: var(--success); }
+
+    /* Группа полей */
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 14px;
+      margin-top: 20px;
+    }
+    .section-label:first-of-type { margin-top: 0; }
+
+    .fields-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 14px;
+      animation: fadeUp 0.5s ease both;
+    }
+    .field label {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+    .field label .optional {
+      font-size: 10px;
+      opacity: 0.6;
+      margin-left: 4px;
+    }
+
+    .field input, .field select {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 11px 14px;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      width: 100%;
+    }
+    .field input::placeholder { color: var(--muted); opacity: 0.6; }
+    .field input:focus, .field select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(232,184,75,0.1);
+    }
+    .field input.error { border-color: var(--error); }
+    .field select option { background: var(--surface2); }
+
+    .field-hint {
+      font-size: 11px;
+      color: var(--error);
+      display: none;
+    }
+    .field.has-error .field-hint { display: block; }
+
+    /* Обёртка для поля с кнопкой показа пароля */
+    .input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .input-wrap input {
+      padding-right: 42px !important;
+    }
+    .toggle-pass {
+      position: absolute;
+      right: 12px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--muted);
+      font-size: 16px;
+      padding: 4px;
+      line-height: 1;
+      transition: color 0.2s;
+      user-select: none;
+    }
+    .toggle-pass:hover { color: var(--accent); }
+
+    /* Гендер — кастомные кнопки */
+    .gender-group {
+      display: flex;
+      gap: 8px;
+    }
+    .gender-btn {
+      flex: 1;
+      padding: 10px 8px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface2);
+      color: var(--muted);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+    .gender-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .gender-btn.selected {
+      border-color: var(--accent);
+      background: rgba(232,184,75,0.1);
+      color: var(--accent);
+    }
+
+    /* Разделитель OAuth */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 20px 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* OAuth кнопки (будущие) */
+    .oauth-buttons {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+    .oauth-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface2);
+      color: var(--muted);
+      font-size: 13px;
+      font-family: 'DM Sans', sans-serif;
+      cursor: not-allowed;
+      opacity: 0.5;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .oauth-btn .soon {
+      position: absolute;
+      top: -8px; right: -4px;
+      background: var(--accent);
+      color: #000;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 1px 5px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    /* Кнопки действий */
+    .btn-primary {
+      width: 100%;
+      padding: 13px;
+      border-radius: 12px;
+      border: none;
+      background: linear-gradient(135deg, var(--accent2), var(--accent));
+      color: #0a0a0f;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: opacity 0.2s, transform 0.1s;
+      letter-spacing: 0.3px;
+    }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+    .btn-primary:active { transform: translateY(0); }
+
+    .btn-skip {
+      width: 100%;
+      padding: 11px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: border-color 0.2s, color 0.2s;
+      letter-spacing: 0.3px;
+    }
+    .btn-skip:hover { border-color: var(--muted); color: var(--text); }
+
+    .login-link {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .login-link a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .login-link a:hover { text-decoration: underline; }
+
+    /* Анимации */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Скрытый шаг */
+    .step-block { display: none; }
+    .step-block.active { display: block; }
+
+    @media (max-width: 560px) {
+      .film-strip { display: none; }
+      .page-wrapper { margin-left: 0; padding: 24px 16px; }
+      .card { padding: 28px 20px; }
+      .fields-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Фон -->
+  <div class="bg-orb bg-orb-1"></div>
+  <div class="bg-orb bg-orb-2"></div>
+
+  <!-- Киноплёнка -->
+  <div class="film-strip" id="filmStrip"></div>
+
+  <div class="page-wrapper">
+    <!-- Логотип -->
+    <div class="logo">
+      <div class="logo-icon">🎬</div>
+      <div class="logo-text">КиноПортал</div>
+      <div class="logo-sub">Онлайн-кинотеатр</div>
+    </div>
+
+    <div class="card">
+      <!-- Индикатор шагов -->
+      <div class="steps">
+        <div class="step active" id="s1"></div>
+        <div class="step" id="s2"></div>
+      </div>
+
+      <!-- ШАГ 1: Почта и пароль -->
+      <div class="step-block active" id="step1">
+        <div class="card-title">Создать аккаунт</div>
+        <div class="card-subtitle">Шаг 1 из 2 — Учётные данные</div>
+
+        <div class="section-label">Войти через</div>
+        <div class="oauth-buttons">
+          <button class="oauth-btn" disabled>
+            <span>🟡</span> Яндекс ID
+            <span class="soon">СКОРО</span>
+          </button>
+          <button class="oauth-btn" disabled>
+            <span>🔵</span> VK ID
+            <span class="soon">СКОРО</span>
+          </button>
+        </div>
+
+        <div class="divider">или по почте</div>
+
+        <div class="field" id="f-email">
+          <label>Электронная почта</label>
+          <input type="email" id="email" placeholder="example@mail.ru" autocomplete="email"/>
+          <span class="field-hint" id="hint-email">Введите корректный email</span>
+        </div>
+
+        <div class="field" id="f-pass">
+          <label>Пароль</label>
+          <div class="input-wrap">
+            <input type="password" id="password" placeholder="Минимум 8 символов" autocomplete="new-password"/>
+            <button type="button" class="toggle-pass" onclick="togglePass('password', this)" title="Показать пароль">👁</button>
+          </div>
+          <span class="field-hint" id="hint-pass">Пароль должен быть не менее 8 символов</span>
+        </div>
+
+        <div class="field" id="f-pass2">
+          <label>Подтверждение пароля</label>
+          <div class="input-wrap">
+            <input type="password" id="password2" placeholder="Повторите пароль" autocomplete="new-password"/>
+            <button type="button" class="toggle-pass" onclick="togglePass('password2', this)" title="Показать пароль">👁</button>
+          </div>
+          <span class="field-hint" id="hint-pass2">Пароли не совпадают</span>
+        </div>
+
+        <button class="btn-primary" onclick="goStep2()">Продолжить →</button>
+        <button class="btn-skip" onclick="skipReg()">Пропустить регистрацию</button>
+
+        <div class="login-link">
+          Уже есть аккаунт? <a href="login.html">Войти</a>
+        </div>
+      </div>
+
+      <!-- ШАГ 2: Личная информация -->
+      <div class="step-block" id="step2">
+        <div class="card-title">О себе</div>
+        <div class="card-subtitle">Шаг 2 из 2 — Личная информация</div>
+
+        <div class="fields-row">
+          <div class="field" id="f-first">
+            <label>Имя</label>
+            <input type="text" id="firstName" placeholder="Иван" autocomplete="given-name"/>
+            <span class="field-hint">Введите имя</span>
+          </div>
+          <div class="field" id="f-last">
+            <label>Фамилия</label>
+            <input type="text" id="lastName" placeholder="Иванов" autocomplete="family-name"/>
+            <span class="field-hint">Введите фамилию</span>
+          </div>
+        </div>
+
+        <div class="field" id="f-nick">
+          <label>Никнейм</label>
+          <input type="text" id="nickname" placeholder="@ivan_кино" autocomplete="username"/>
+          <span class="field-hint">Введите никнейм</span>
+        </div>
+
+        <div class="field">
+          <label>Пол <span class="optional">(необязательно)</span></label>
+          <div class="gender-group">
+            <button class="gender-btn" onclick="selectGender(this, 'male')">Мужской</button>
+            <button class="gender-btn" onclick="selectGender(this, 'female')">Женский</button>
+          </div>
+        </div>
+
+        <div class="field" id="f-dob">
+          <label>Дата рождения</label>
+          <input type="date" id="dob" max="" autocomplete="bday"/>
+          <span class="field-hint">Введите дату рождения</span>
+        </div>
+
+        <button class="btn-primary" onclick="submitForm()">Создать аккаунт</button>
+        <button class="btn-skip" onclick="goStep1()">← Назад</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // --- Киноплёнка ---
+    const strip = document.getElementById('filmStrip');
+    for (let i = 0; i < 60; i++) {
+      const hole = document.createElement('div');
+      hole.className = 'film-hole';
+      strip.appendChild(hole);
+    }
+
+    // --- Ограничение даты рождения (не в будущем) ---
+    document.getElementById('dob').max = new Date().toISOString().split('T')[0];
+
+    let selectedGender = null;
+
+    function selectGender(btn, value) {
+      document.querySelectorAll('.gender-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedGender = value;
+    }
+
+    // --- Валидация шага 1 ---
+    function goStep2() {
+      const email = document.getElementById('email').value.trim();
+      const pass  = document.getElementById('password').value;
+      const pass2 = document.getElementById('password2').value;
+      let ok = true;
+
+      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      setError('f-email', 'hint-email', !emailOk);
+      if (!emailOk) ok = false;
+
+      const passOk = pass.length >= 8;
+      setError('f-pass', 'hint-pass', !passOk);
+      if (!passOk) ok = false;
+
+      const pass2Ok = pass === pass2 && pass2.length > 0;
+      setError('f-pass2', 'hint-pass2', !pass2Ok);
+      if (!pass2Ok) ok = false;
+
+      if (ok) {
+        document.getElementById('step1').classList.remove('active');
+        document.getElementById('step2').classList.add('active');
+        document.getElementById('s1').classList.replace('active', 'done');
+        document.getElementById('s2').classList.add('active');
+      }
+    }
+
+    function goStep1() {
+      document.getElementById('step2').classList.remove('active');
+      document.getElementById('step1').classList.add('active');
+      document.getElementById('s2').classList.remove('active');
+      document.getElementById('s1').classList.replace('done', 'active');
+    }
+
+    // --- Валидация шага 2 ---
+    function submitForm() {
+      const first = document.getElementById('firstName').value.trim();
+      const last  = document.getElementById('lastName').value.trim();
+      const nick  = document.getElementById('nickname').value.trim();
+      const dob   = document.getElementById('dob').value;
+      let ok = true;
+
+      setError('f-first', null, !first);  if (!first) ok = false;
+      setError('f-last',  null, !last);   if (!last)  ok = false;
+      setError('f-nick',  null, !nick);   if (!nick)  ok = false;
+      setError('f-dob',   null, !dob);    if (!dob)   ok = false;
+
+      if (ok) {
+        // Здесь будет отправка данных на Flask-сервер (fetch POST /register)
+        alert('✅ Аккаунт создан! (здесь будет редирект на главную)');
+      }
+    }
+
+    function setError(fieldId, hintId, hasError) {
+      const field = document.getElementById(fieldId);
+      if (!field) return;
+      if (hasError) field.classList.add('has-error');
+      else field.classList.remove('has-error');
+      const inputs = field.querySelectorAll('input, select');
+      inputs.forEach(i => {
+        if (hasError) i.classList.add('error');
+        else i.classList.remove('error');
+      });
+    }
+
+    function togglePass(inputId, btn) {
+      const input = document.getElementById(inputId);
+      if (input.type === 'password') {
+        input.type = 'text';
+        btn.textContent = '👁';
+        btn.title = 'Скрыть пароль';
+      } else {
+        input.type = 'password';
+        btn.textContent = '👁';
+        btn.title = 'Показать пароль';
+      }
+    }
+
+    function skipReg() {
+      // Здесь будет редирект на главную без аккаунта
+      alert('Продолжение без аккаунта (редирект на главную)');
+    }
+  </script>
+</body>
+</html>
