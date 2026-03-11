@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кинотека - онлайн-кинотеатр</title>
+    <link rel="stylesheet" href="mainpage.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo">
+                <h1>КИНОТЕКА</h1>
+            </div>
+            
+            <nav class="nav">
+                <ul class="nav-menu">
+                    <li><a href="#" class="active">Главная</a></li>
+                    <li><a href="#">Фильмы</a></li>
+                    <li><a href="#">Сериалы</a></li>
+                    <li><a href="#">Мультфильмы</a></li>
+                    <li><a href="#">Подборки</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-actions">
+                <button class="search-btn"><i class="fas fa-search"></i></button>
+                <button class="notifications-btn"><i class="fas fa-bell"></i></button>
+                <div class="user-profile">
+                    <img src="https://i.pravatar.cc/40?img=7" alt="Profile" class="avatar">
+                    <span class="user-name">Анна</span>
+                </div>
+            </div>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Главный баннер с промо -->
+        <section class="hero">
+            <div class="hero-backdrop" style="background-image: url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1925&q=80')">
+                <div class="hero-overlay"></div>
+            </div>
+            <div class="container hero-content">
+                <div class="hero-badge">НОВИНКА</div>
+                <h2 class="hero-title">Дюна: Часть вторая</h2>
+                <div class="hero-meta">
+                    <span class="hero-year">2024</span>
+                    <span class="hero-rating"><i class="fas fa-star"></i> 8.9</span>
+                    <span class="hero-age">16+</span>
+                    <span class="hero-duration">166 мин</span>
+                </div>
+                <p class="hero-description">
+                    Пол Атрейдес продолжает свой путь мести против императора, уничтожившего его семью. 
+                    Объединившись с фременами, он готовится к решающей битве за судьбу вселенной.
+                </p>
+                <div class="hero-actions">
+                    <button class="btn btn-primary"><i class="fas fa-play"></i> Смотреть</button>
+                    <button class="btn btn-secondary"><i class="fas fa-plus"></i> В список</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Категории -->
+        <section class="categories">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Категории</h2>
+                    <a href="#" class="section-link">Все категории <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="categories-grid">
+                    <div class="category-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        <i class="fas fa-film category-icon"></i>
+                        <h3>Фильмы</h3>
+                        <span>1,245 фильмов</span>
+                    </div>
+                    <div class="category-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                        <i class="fas fa-tv category-icon"></i>
+                        <h3>Сериалы</h3>
+                        <span>856 сериалов</span>
+                    </div>
+                    <div class="category-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                        <i class="fas fa-dragon category-icon"></i>
+                        <h3>Аниме</h3>
+                        <span>432 тайтла</span>
+                    </div>
+                    <div class="category-card" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                        <i class="fas fa-child category-icon"></i>
+                        <h3>Мультфильмы</h3>
+                        <span>678 мультфильмов</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Популярное сейчас -->
+        <section class="trending">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Популярное сейчас</h2>
+                    <div class="trending-tabs">
+                        <button class="tab-btn active">День</button>
+                        <button class="tab-btn">Неделя</button>
+                        <button class="tab-btn">Месяц</button>
+                    </div>
+                </div>
+                <div class="movies-grid">
+                    <div class="movie-card">
+                        <div class="movie-poster">
+                            <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?ixlib=rb-1.2.1&auto=format&fit=crop&w=740&q=80" alt="Movie">
+                            <div class="movie-rating"><i class="fas fa-star"></i> 8.5</div>
+                            <div class="movie-overlay">
+                                <button class="movie-play"><i class="fas fa-play"></i></button>
+                                <button class="movie-fav"><i class="fas fa-heart"></i></button>
+                            </div>
+                        </div>
+                        <div class="movie-info">
+                            <h3>Оппенгеймер</h3>
+                            <div class="movie-meta">
+                                <span>2023</span>
+                                <span>16+</span>
+                                <span>180 мин</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="movie-card">
+                        <div class="movie-poster">
+                            <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-1.2.1&auto=format&fit=crop&w=725&q=80" alt="Movie">
+                            <div class="movie-rating"><i class="fas fa-star"></i> 8.9</div>
+                            <div class="movie-overlay">
+                                <button class="movie-play"><i class="fas fa-play"></i></button>
+                                <button class="movie-fav"><i class="fas fa-heart"></i></button>
+                            </div>
+                        </div>
+                        <div class="movie-info">
+                            <h3>Дюна: Часть вторая</h3>
+                            <div class="movie-meta">
+                                <span>2024</span>
+                                <span>16+</span>
+                                <span>166 мин</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="movie-card">
+                        <div class="movie-poster">
+                            <img src="https://images.unsplash.com/photo-1598899134730-5c2d3c40585c?ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80" alt="Movie">
+                            <div class="movie-rating"><i class="fas fa-star"></i> 8.2</div>
+                            <div class="movie-overlay">
+                                <button class="movie-play"><i class="fas fa-play"></i></button>
+                                <button class="movie-fav"><i class="fas fa-heart"></i></button>
+                            </div>
+                        </div>
+                        <div class="movie-info">
+                            <h3>Бедные-несчастные</h3>
+                            <div class="movie-meta">
+                                <span>2023</span>
+                                <span>18+</span>
+                                <span>141 мин</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="movie-card">
+                        <div class="movie-poster">
+                            <img src="https://images.unsplash.com/photo-1585951237318-9ea5e175b891?ixlib=rb-1.2.1&auto=format&fit=crop&w=870&q=80" alt="Movie">
+                            <div class="movie-rating"><i class="fas fa-star"></i> 7.9</div>
+                            <div class="movie-overlay">
+                                <button class="movie-play"><i class="fas fa-play"></i></button>
+                                <button class="movie-fav"><i class="fas fa-heart"></i></button>
+                            </div>
+                        </div>
+                        <div class="movie-info">
+                            <h3>Феррари</h3>
+                            <div class="movie-meta">
+                                <span>2023</span>
+                                <span>16+</span>
+                                <span>130 мин</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Продолжить просмотр -->
+        <section class="continue-watching">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Продолжить просмотр</h2>
+                    <a href="#" class="section-link">Вся история <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="continue-grid">
+                    <div class="continue-item">
+                        <img src="https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80" alt="Continue">
+                        <div class="continue-progress" style="width: 75%"></div>
+                        <div class="continue-info">
+                            <h4>Монарх: Наследие монстров</h4>
+                            <span>Сезон 1, Серия 7</span>
+                        </div>
+                    </div>
+                    <div class="continue-item">
+                        <img src="https://images.unsplash.com/photo-1533928298208-27ff66555d8d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80" alt="Continue">
+                        <div class="continue-progress" style="width: 30%"></div>
+                        <div class="continue-info">
+                            <h4>Падение дома Ашеров</h4>
+                            <span>Сезон 1, Серия 3</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Подборки -->
+        <section class="collections">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Подборки для вас</h2>
+                    <a href="#" class="section-link">Все подборки <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="collections-grid">
+                    <div class="collection-card" style="background-image: url('https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80')">
+                        <div class="collection-overlay"></div>
+                        <div class="collection-content">
+                            <h3>Лучшие триллеры</h3>
+                            <p>24 фильма</p>
+                        </div>
+                    </div>
+                    <div class="collection-card" style="background-image: url('https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80')">
+                        <div class="collection-overlay"></div>
+                        <div class="collection-content">
+                            <h3>Комедии выходного дня</h3>
+                            <p>32 фильма</p>
+                        </div>
+                    </div>
+                    <div class="collection-card" style="background-image: url('https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80')">
+                        <div class="collection-overlay"></div>
+                        <div class="collection-content">
+                            <h3>Оскар 2024</h3>
+                            <p>18 фильмов</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>КИНОТЕКА</h4>
+                    <p>Ваш идеальный онлайн-кинотеатр с тысячами фильмов, сериалов и мультфильмов.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul>
+                        <li><a href="#">Фильмы</a></li>
+                        <li><a href="#">Сериалы</a></li>
+                        <li><a href="#">Мультфильмы</a></li>
+                        <li><a href="#">Подборки</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="#">О нас</a></li>
+                        <li><a href="#">Помощь</a></li>
+                        <li><a href="#">Политика конфиденциальности</a></li>
+                        <li><a href="#">Пользовательское соглашение</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Приложение</h4>
+                    <div class="app-buttons">
+                        <button class="app-btn">
+                            <i class="fab fa-apple"></i>
+                            <span>App Store</span>
+                        </button>
+                        <button class="app-btn">
+                            <i class="fab fa-google-play"></i>
+                            <span>Google Play</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2024 Кинотека. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Мобильное меню
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
