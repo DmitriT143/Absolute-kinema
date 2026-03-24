@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет</title>
+    <link rel="stylesheet" href="lk.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="profile-card">
+            <!-- Шапка профиля -->
+            <div class="profile-header">
+                <div class="avatar-section">
+                    <img src="https://via.placeholder.com/100" alt="Avatar" class="avatar">
+                    <h1 class="user-name">Анастасия</h1>
+                    <p class="user-email">anastasia@example.com</p>
+                </div>
+                
+                <button class="edit-profile-btn">
+                    <i class="fas fa-pen"></i>
+                    Редактировать профиль
+                </button>
+            </div>
+
+            <!-- Статистика -->
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <i class="fas fa-film stat-icon"></i>
+                    <div class="stat-info">
+                        <span class="stat-value">24</span>
+                        <span class="stat-label">Фильма</span>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-clock stat-icon"></i>
+                    <div class="stat-info">
+                        <span class="stat-value">3</span>
+                        <span class="stat-label">В процессе</span>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-heart stat-icon"></i>
+                    <div class="stat-info">
+                        <span class="stat-value">12</span>
+                        <span class="stat-label">В избранном</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Личная информация -->
+            <div class="info-section">
+                <h2 class="section-title">
+                    <i class="fas fa-user"></i>
+                    Личная информация
+                </h2>
+                
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Имя</span>
+                        <span class="info-value">Анастасия</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Фамилия</span>
+                        <span class="info-value">Могильницкая</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Дата рождения</span>
+                        <span class="info-value">25.08.2004</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Страна</span>
+                        <span class="info-value">Россия</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Телефон</span>
+                        <span class="info-value">+7 (999) 999-99-99</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Язык</span>
+                        <span class="info-value">Русский</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Настройки -->
+            <div class="info-section">
+                <h2 class="section-title">
+                    <i class="fas fa-cog"></i>
+                    Настройки
+                </h2>
+                
+                <div class="settings-list">
+                    <label class="setting-item">
+                        <div class="setting-info">
+                            <span class="setting-name">Email-уведомления</span>
+                            <span class="setting-desc">Получать уведомления на почту</span>
+                        </div>
+                        <input type="checkbox" class="toggle" checked>
+                    </label>
+                    
+                    <label class="setting-item">
+                        <div class="setting-info">
+                            <span class="setting-name">Двухфакторная аутентификация</span>
+                            <span class="setting-desc">Повышенная безопасность</span>
+                        </div>
+                        <input type="checkbox" class="toggle">
+                    </label>
+                    
+                    
+                </div>
+            </div>
+
+            <!-- Кнопки действий -->
+            <div class="action-buttons">
+                <button class="btn btn-primary">
+                    <i class="fas fa-save"></i>
+                    Сохранить изменения
+                </button>
+                <button class="btn btn-secondary" onclick="window.location.href='index.html'">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Выйти
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
